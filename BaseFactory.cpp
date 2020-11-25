@@ -6,16 +6,29 @@ Base * parseOperator(char c, Base* op1, Base* op2) {
     // TODO Fill this out
     if (c == '*')
         return new Mult(op1, op2);
+    else if(c == '+')
+	return new Add(op1, op2);
+    else if(c == '/')
+        return new Div(op1, op2);
+    else if(c == '-')
+        return new Sub(op1, op2);
+    else if(c == '^')
+        return new Pow(op1, op2);
+    else
+	return nullptr;
 }
 
 bool isOperator(char c) {
     // TODO Finish this
-    return c == '*' || c == '-';
+    return c == '*' || c == '-' || c == '+' || c == '/' || c == '^';
 }
 
 bool isNumber(char c) {
     // FIXME STUB
-    return true;
+    if ((c >= '0') && (c <= '9'))
+        return true;
+    else 
+	return false;
 }
 
 Base * BaseFactory::parse(char **input, int length) {
