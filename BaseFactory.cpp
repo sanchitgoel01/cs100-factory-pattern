@@ -1,9 +1,13 @@
 #include "BaseFactory.h"
+
 #include "op.hpp"
 #include "mult.hpp"
+#include "add.hpp"
+#include "div.hpp"
+#include "sub.hpp"
+#include "pow.hpp"
 
 Base * parseOperator(char c, Base* op1, Base* op2) {
-    // TODO Fill this out
     if (c == '*')
         return new Mult(op1, op2);
     else if(c == '+')
@@ -19,20 +23,15 @@ Base * parseOperator(char c, Base* op1, Base* op2) {
 }
 
 bool isOperator(char c) {
-    // TODO Finish this
     return c == '*' || c == '-' || c == '+' || c == '/' || c == '^';
 }
 
 bool isNumber(char c) {
-    // FIXME STUB
-    if ((c >= '0') && (c <= '9'))
-        return true;
-    else 
-	return false;
+    return (c >= '0') && (c <= '9');
 }
 
 Base * BaseFactory::parse(char **input, int length) {
-    char* charArray = input[0];
+    char* charArray = input[1];
 
     Base* lastOperand = nullptr;
     char lastOperator = 0;
