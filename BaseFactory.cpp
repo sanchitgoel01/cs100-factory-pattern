@@ -13,7 +13,7 @@ Base * parseOperator(char c, Base* op1, Base* op2) {
     if (c == '*')
         return new Mult(op1, op2);
     else if(c == '+')
-	return new Add(op1, op2);
+	    return new Add(op1, op2);
     else if(c == '/')
         return new Div(op1, op2);
     else if(c == '-')
@@ -51,53 +51,55 @@ void performCalculation(std::stack<Base*>& operandStack, char operation) {
 }
 
 Base * BaseFactory::parse(char **input, int length) {
-    char* charArray = input[1];
-
     char lastOperator = 0;
     std::stack<Base*> operandStack;
 
-    for (int i = 0; charArray[i] != 0; ++i) {
-        char c = charArray[i];
+    // Loop through all executable arguments starting from 1 (since 0 is name of executable)
+    for (int i = 1; i < length; ++i) {
+        char* charArray = input[i];
 
-        if (isOperator(c)) {
-            // Perform a calculation everytime we hit an operator.
-            if (operandStack.size() == 2) {
-                // Perform the previous calculation before setting the next operator
-                performCalculation(operandStack, lastOperator);
-                // Clear last operator for checks below
-                lastOperator = 0;
-            }
+        for (int j = 0; charArray[j] != 0; ++j) {
+            char c = charArray[j];
 
-            // Handle ** as exponent E.g. 5**5 = 5^5
-            if (lastOperator && c == '*') {
-                c = '^';
-            }
+            if (isOperator(c)) {
+                // Perform a calculation everytime we hit an operator.
+                if (operandStack.size() == 2) {
+                    // Perform the previous calculation before setting the next operator
+                    performCalculation(operandStack, lastOperator);
+                    // Clear last operator for checks below
+                    lastOperator = 0;
+                }
 
-            lastOperator = c;
-        }
-        else if (isNumber(c)) {
-            // Convert the character to a number
-            int val = c - '0';
+                // Handle ** as exponent E.g. 5**5 = 5^5
+                if (lastOperator && c == '*') {
+                    c = '^';
+                }
 
-            // We want to push a new operand onto the stack iff
-            // the stack is empty (first number we encounter) or
-            // we are encountering the right hand operand. E.g: 5 + 10, we are encountering the 1
+                lastOperator = c;
+            } else if (isNumber(c)) {
+                // Convert the character to a number
+                int val = c - '0';
 
-            // Stack Size: 2
-            if (operandStack.empty() || (lastOperator && operandStack.size() == 1)) {
-                Op* op = new Op(val);
-                operandStack.push(op);
-            }
-            // Otherwise, we want to handle a multidigit value.
-            else {
-                Base* lastOperand = operandStack.top();
-                operandStack.pop();
+                // We want to push a new operand onto the stack iff
+                // the stack is empty (first number we encounter) or
+                // we are encountering the right hand operand. E.g: 5 + 10, we are encountering the 1
 
-                Op* nextDigit = new Op(lastOperand->evaluate() * 10 + val);
-                // Free up the memory of the previous operand
-                delete lastOperand;
-                // 10
-                operandStack.push(nextDigit);
+                // Stack Size: 2
+                if (operandStack.empty() || (lastOperator && operandStack.size() == 1)) {
+                    Op *op = new Op(val);
+                    operandStack.push(op);
+                }
+                    // Otherwise, we want to handle a multidigit value.
+                else {
+                    Base *lastOperand = operandStack.top();
+                    operandStack.pop();
+
+                    Op *nextDigit = new Op(lastOperand->evaluate() * 10 + val);
+                    // Free up the memory of the previous operand
+                    delete lastOperand;
+                    // 10
+                    operandStack.push(nextDigit);
+                }
             }
         }
     }
