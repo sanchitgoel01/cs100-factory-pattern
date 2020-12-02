@@ -4,12 +4,18 @@ ADD_SUBDIRECTORY(googletest)
 
 SET(CMAKE_CXX_STANDARD 11)
 
+
 ADD_EXECUTABLE(calculator
         main.cpp
-        BaseFactory.cpp)
+	BaseFactory.cpp
+		
+)
 
 ADD_EXECUTABLE(test
-        BaseFactory.cpp)
+        test.cpp
+	BaseFactory.cpp
+)
+
 
 TARGET_LINK_LIBRARIES(test gtest)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
