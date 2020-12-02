@@ -13,7 +13,7 @@ ADD_EXECUTABLE(calculator
 
 ADD_EXECUTABLE(test
         test.cpp
-	
+	BaseFactory.cpp
 )
 
 

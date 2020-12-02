@@ -10,7 +10,7 @@
 #include "div.hpp"
 #include "rand.hpp"
 #include "base.hpp"
-#include "BaseFactory.cpp"
+#include "BaseFactory.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
