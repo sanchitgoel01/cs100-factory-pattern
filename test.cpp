@@ -24,6 +24,7 @@ TEST(OpTestAdd, AddAddAddAdd) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(15, test->evaluate());
+    EXPECT_EQ("5.000000 + 4.000000 + 3.000000 + 2.000000 + 1.000000", test->stringify());
 }
 
 TEST(OpTestAdd, AddSubMultDiv) {
@@ -33,6 +34,7 @@ TEST(OpTestAdd, AddSubMultDiv) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(5, test->evaluate());
+    EXPECT_EQ("5.000000 + 6.000000 - 1.000000 * 2.000000 / 4.000000", test->stringify());
 }
 
 TEST(OpTestAdd, AddMultDivSub) {
@@ -42,6 +44,7 @@ TEST(OpTestAdd, AddMultDivSub) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(1, test->evaluate());
+    EXPECT_EQ("4.000000 + 1.000000 * 4.000000 / 10.000000 - 1.000000", test->stringify());
 }
 
 TEST(OpTestAdd, AddDivSubMult) {
@@ -51,6 +54,7 @@ TEST(OpTestAdd, AddDivSubMult) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(16, test->evaluate());
+    EXPECT_EQ("2.000000 + 4.000000 / 3.000000 - 0.000000 * 8.000000", test->stringify());
 }
 
 TEST(OpTestSub, SubSubSubSub) {
@@ -60,6 +64,7 @@ TEST(OpTestSub, SubSubSubSub) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(10, test->evaluate());
+    EXPECT_EQ("20.000000 - 4.000000 - 3.000000 - 2.000000 - 1.000000", test->stringify());
 }
 
 TEST(OpTestSub, SubAddMultDiv) {
@@ -69,6 +74,7 @@ TEST(OpTestSub, SubAddMultDiv) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(50, test->evaluate());
+    EXPECT_EQ("30.000000 - 10.000000 + 5.000000 * 4.000000 / 2.000000", test->stringify());
 }
 
 TEST(OpTestSub, SubMultDivAdd) {
@@ -78,6 +84,7 @@ TEST(OpTestSub, SubMultDivAdd) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(7, test->evaluate());
+    EXPECT_EQ("30.000000 - 15.000000 * 3.000000 / 9.000000 + 2.000000", test->stringify());
 }
 
 TEST(OpTestSub, SubDivAddMult) {
@@ -87,6 +94,7 @@ TEST(OpTestSub, SubDivAddMult) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(24, test->evaluate());
+    EXPECT_EQ("8.000000 - 2.000000 / 3.000000 + 4.000000 * 4.000000", test->stringify());
 }
 
 TEST(OpTestMult, MultMultMultMult) {
@@ -96,6 +104,7 @@ TEST(OpTestMult, MultMultMultMult) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(120, test->evaluate());
+    EXPECT_EQ("1.000000 * 2.000000 * 3.000000 * 4.000000 * 5.000000", test->stringify());
 }
 
 TEST(OpTestMult, MultAddSubDiv) {
@@ -105,6 +114,7 @@ TEST(OpTestMult, MultAddSubDiv) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(2, test->evaluate());
+    EXPECT_EQ("2.000000 * 3.000000 + 4.000000 - 2.000000 / 4.000000", test->stringify());
 }
 
 TEST(OpTestMult, MultSubDivAdd) {
@@ -114,15 +124,17 @@ TEST(OpTestMult, MultSubDivAdd) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(8, test->evaluate());
+    EXPECT_EQ("3.000000 * 3.000000 - 1.000000 / 4.000000 + 6.000000", test->stringify());
 }
 
 TEST(OpTestMult, MultDivAddSub) {
     char* test_val[2];
     test_val[0] = "./calculator";
-    test_val[1] = "2+6/4+4-2";
+    test_val[1] = "2*6/4+4-2";
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
-    EXPECT_EQ(4, test->evaluate());
+    EXPECT_EQ(5, test->evaluate());
+    EXPECT_EQ("2.000000 * 6.000000 / 4.000000 + 4.000000 - 2.000000", test->stringify());
 }
 
 TEST(OpTestDiv, DivDivDivDiv) {
@@ -132,6 +144,7 @@ TEST(OpTestDiv, DivDivDivDiv) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(3, test->evaluate());
+    EXPECT_EQ("36.000000 / 2.000000 / 3.000000 / 2.000000 / 1.000000", test->stringify());
 }
 
 TEST(OpTestDiv, DivAddSubMult) {
@@ -141,6 +154,7 @@ TEST(OpTestDiv, DivAddSubMult) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(32, test->evaluate());
+    EXPECT_EQ("36.000000 / 2.000000 + 2.000000 - 4.000000 * 2.000000", test->stringify());
 }
 
 TEST(OpTestDiv, DivSubMultAdd) {
@@ -150,6 +164,7 @@ TEST(OpTestDiv, DivSubMultAdd) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(35, test->evaluate());
+    EXPECT_EQ("36.000000 / 2.000000 - 3.000000 * 2.000000 + 5.000000", test->stringify());
 }
 
 TEST(OpTestDiv, DivMultAddSub) {
@@ -159,6 +174,7 @@ TEST(OpTestDiv, DivMultAddSub) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(10, test->evaluate());
+    EXPECT_EQ("16.000000 / 2.000000 * 3.000000 + 1.000000 - 15.000000", test->stringify());
 }
 
 TEST(OpTestPow, Pow) {
@@ -168,6 +184,7 @@ TEST(OpTestPow, Pow) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(8, test->evaluate());
+    EXPECT_EQ("2.000000 ** 3.000000", test->stringify());
 }
 
 TEST(OpTestPow, PowAdd) {
@@ -177,6 +194,7 @@ TEST(OpTestPow, PowAdd) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(13, test->evaluate());
+    EXPECT_EQ("2.000000 ** 3.000000 + 5.000000", test->stringify());
 }
 
 TEST(OpTestPow, PowSub) {
@@ -186,6 +204,7 @@ TEST(OpTestPow, PowSub) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(3, test->evaluate());
+    EXPECT_EQ("2.000000 ** 3.000000 - 5.000000", test->stringify());
 }
 
 TEST(OpTestPow, PowMult) {
@@ -195,6 +214,7 @@ TEST(OpTestPow, PowMult) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(16, test->evaluate());
+    EXPECT_EQ("2.000000 ** 3.000000 * 2.000000", test->stringify());
 }
 
 TEST(OpTestPow, PowDiv) {
@@ -204,4 +224,5 @@ TEST(OpTestPow, PowDiv) {
     BaseFactory* factory;
     Base *test = factory->parse(test_val,2);
     EXPECT_EQ(2, test->evaluate());
+    EXPECT_EQ("2.000000 ** 3.000000 / 4.000000", test->stringify());
 }
