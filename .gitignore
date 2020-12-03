@@ -1,4 +1,7 @@
+# Ignore executables
+calculator
 test
+# Ignore Cmake
 CMakeCache.txt
 CMakeFiles/
 Makefile
